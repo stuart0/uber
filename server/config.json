@@ -1,0 +1,14 @@
+{
+    "serverPort": 8088,
+    "maxFavorites": 10,
+    "dbHost": "127.0.0.1",
+    "dbUser": "USERNAME",
+    "dbPass": "PASSWORD",
+    "dbName": "uber",
+    "logLevel": "DEBUG",
+    "logToConsole": true,
+    "logToFile": true,
+    "logBasePath": "logs",
+    "maxLogSize": 20480,
+    "backups": 5
+}
