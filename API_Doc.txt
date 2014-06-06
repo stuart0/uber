@@ -1,0 +1,108 @@
+**** API Notes ****
+
+All data structures are in JSON
+
+
+LOGIN:
+
++--------+----------+-------------------+--------------------+
+| Method | Resource |    Body Params    |      Returns       |
++--------+----------+-------------------+--------------------+
+| POST   | /login   | email (string)    | userId (string)    |
+|        |          | password (string) | authToken (string) |
++--------+----------+-------------------+--------------------+
+
+Example:
+
+> POST http://localhost:8088/login
+> {"email":"test@example.com", "password","password123"}
+
+< 200 OK
+< {"userId": "ABC123", token: "fjd2sl2023"}
+
+
+
+
+FAVORITES:
+
+All requets require 'token' query parameter, the value of which is obatined via login
+
+
++--------+--------------------------+--------------------+-----------------------+
+| Method |         Resource         |    Body Params     |        Returns        |
++--------+--------------------------+--------------------+-----------------------+
+| POST   | /users/:userId/favorites | latitude (number)  | id (number)           |
+|        |                          | longitude (number) | name (string)         |
+|        |                          | ------ or ------   | latitude (number)     |
+|        |                          | address (string)   | longitude (number)    |
+|        |                          | --- optional ---   | streetNumber (string) |
+|        |                          | name (string)      | streetName (string)   |
+|        |                          |                    | city (string)         |
+|        |                          |                    | state (string)        |
+|        |                          |                    | zip (string)          |
+|        |                          |                    | country (string)      |
+|        |                          |                    | createDate (string)   |
++--------+--------------------------+--------------------+-----------------------+
+
+Example:
+
+> POST http://localhost:8088/users/ABC123/favorites?token=fjd2sl2023
+> {"address":"1455 Market St, San Francisco"}
+
+< 201 Created
+< {
+<    "id": 1013,
+<    "name": "1455 Market Street",
+<    "latitude": 37.7758179,
+<    "longitude": -122.4180285,
+<    "streetNumber": "1455",
+<    "streetName": "Market Street",
+<    "city": "San Francisco",
+<    "state": "California",
+<    "zip": "94103",
+<    "country": "United States",
+<    "createDate": "2014-06-06T17:09:49.000Z"
+< }
+
+
++--------+--------------------------+--------------------+
+| Method |         Resource         |      Returns       |
++--------+--------------------------+--------------------+
+| GET    | /users/:userId/favorites | array of favorites |
++--------+--------------------------+--------------------+
+
+
++--------+---------------------------------+-----------------------+
+| Method |            Resource             |        Returns        |
++--------+---------------------------------+-----------------------+
+| GET    | /users/:userId/favorites/:favId | id (number)           |
+|        |                                 | name (string)         |
+|        |                                 | latitude (number)     |
+|        |                                 | longitude (number)    |
+|        |                                 | streetNumber (string) |
+|        |                                 | streetName (string)   |
+|        |                                 | city (string)         |
+|        |                                 | state (string)        |
+|        |                                 | zip (string)          |
+|        |                                 | country (string)      |
+|        |                                 | createDate (string)   |
++--------+---------------------------------+-----------------------+
+
+
++--------+---------------------------------+-----------------------+-----------------------+
+| Method |            Resource             |      Body Params      |        Returns        |
++--------+---------------------------------+-----------------------+-----------------------+
+| PUT    | /users/:userId/favorites/:favId |   --- optional ---    | id (number)           |
+|        |                                 | name (string)         | name (string)         |
+|        |                                 | streetNumber (string) | latitude (number)     |
+|        |                                 | streetName (string)   | longitude (number)    |
+|        |                                 | city (string)         | streetNumber (string) |
+|        |                                 | state (string)        | streetName (string)   |
+|        |                                 | zip (string)          | city (string)         |
+|        |                                 | country (string)      | state (string)        |
+|        |                                 |                       | zip (string)          |
+|        |                                 |                       | country (string)      |
+|        |                                 |                       | createDate (string)   |
++--------+---------------------------------+-----------------------+-----------------------+
+
+
